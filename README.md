@@ -2,7 +2,6 @@
 
 A simple MVP that accepts:
 - PDF files
-- Image files (PNG, JPG, JPEG, WEBP)
 - Pasted legal text
 
 It extracts text, summarizes Terms & Conditions / Privacy Policies in plain English, highlights likely risk areas, and shows a simple risk score.
@@ -39,6 +38,5 @@ http://127.0.0.1:8000
 ```
 
 ## Notes
-- OCR quality depends on the image quality.
 - Scanned PDFs without embedded text may need OCR support page-by-page; this MVP currently extracts embedded PDF text directly and uses OCR for image uploads.
 - To extend this into the larger project scope, you can add URL scanning, stored history, auth, PostgreSQL, and OWASP ZAP.
