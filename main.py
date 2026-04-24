@@ -219,18 +219,28 @@ Extracted text:
 
     endpoint = (
         "https://generativelanguage.googleapis.com/v1beta/models/"
-        "gemini-flash-latest:generateContent"
+        "gemini-1.5-flash:generateContent"
     )
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
         "generationConfig": {"temperature": 0.2, "responseMimeType": "application/json"},
     }
-    resp = requests.post(
-        f"{endpoint}?key={api_key}",
-        json=payload,
-        timeout=45,
-    )
-    resp.raise_for_status()
+    headers = {
+        "x-goog-api-key": api_key,
+        "Content-Type": "application/json",
+    }
+    try:
+        resp = requests.post(
+            endpoint,
+            headers=headers,
+            json=payload,
+            timeout=45,
+        )
+        resp.raise_for_status()
+    except requests.exceptions.RequestException as e:
+        # Prevent logging or returning the raw exception if it contains the URL
+        raise Exception(f"Gemini API request failed with status code: {e.response.status_code if e.response else 'Unknown'}")
+
     data = resp.json()
 
     try:
