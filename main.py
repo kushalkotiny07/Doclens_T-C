@@ -238,8 +238,8 @@ Extracted text:
         )
         resp.raise_for_status()
     except requests.exceptions.RequestException as e:
-        # Prevent logging or returning the raw exception if it contains the URL
-        raise Exception(f"Gemini API request failed with status code: {e.response.status_code if e.response else 'Unknown'}")
+        status = e.response.status_code if e.response is not None else "Unknown"
+        raise Exception(f"Gemini API request failed with status code: {status}. Details: {str(e)}")
 
     data = resp.json()
 
